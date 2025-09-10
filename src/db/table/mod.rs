@@ -83,6 +83,22 @@ impl Value {
             result
         }
     }
+
+    pub fn as_i64(&self) -> Option<i64> {
+        match self {
+            Value::Integer(i) => Some(*i),
+            Value::Real(f) => Some(*f as i64),
+            _ => None
+        }
+    }
+
+    pub fn as_f64(&self) -> Option<f64> {
+        match self {
+            Value::Integer(i) => Some(*i as f64),
+            Value::Real(f) => Some(*f),
+            _ => None
+        }
+    }
 }
 
 impl PartialEq for Value {
@@ -98,7 +114,7 @@ impl PartialEq for Value {
             },
             (Value::Text(a), Value::Text(b)) => a == b,
             (Value::Blob(a), Value::Blob(b)) => a == b,
-            (Value::Null, Value::Null) => true, // Bad - NULL == NULL should be false but this breaks assert_eq!
+            (Value::Null, Value::Null) => true, // TODO: Bad - NULL == NULL should be false but this breaks assert_eq!
             _ => false,
         }
     }
