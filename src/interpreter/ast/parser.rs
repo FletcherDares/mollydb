@@ -150,9 +150,6 @@ mod tests {
             parser.advance()?;
             parser.advance_past_semicolon()?;
             return Ok(SqlStatement::Select(SelectStatementStack {
-                columns: SelectableStack {
-                    selectables: vec![SelectableStackElement::All]
-                },
                 elements: vec![SelectStatementStackElement::SelectStatement(SelectStatement {
                     table_name: "users".to_string(),
                     columns: SelectableStack {
@@ -214,9 +211,6 @@ mod tests {
         // Select
         let result = parser.next_statement(builder);
         let expected = Some(Ok(SqlStatement::Select(SelectStatementStack {
-            columns: SelectableStack {
-                selectables: vec![SelectableStackElement::All]
-            },
             elements: vec![SelectStatementStackElement::SelectStatement(SelectStatement {
                 table_name: "users".to_string(),
                 columns: SelectableStack {

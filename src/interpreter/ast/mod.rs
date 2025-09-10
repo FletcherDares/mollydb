@@ -57,7 +57,6 @@ pub struct InsertIntoStatement {
 
 #[derive(Debug, PartialEq)]
 pub struct SelectStatementStack {
-    pub columns: SelectableStack,
     pub elements: Vec<SelectStatementStackElement>,
     pub order_by_clause: Option<Vec<OrderByClause>>,
     pub limit_clause: Option<LimitClause>,
@@ -399,9 +398,6 @@ mod tests {
         let expected = vec![
             Ok(DatabaseSqlStatement {
                 sql_statement: SqlStatement::Select(SelectStatementStack {
-                    columns: SelectableStack {
-                        selectables: vec![SelectableStackElement::All]
-                    },
                     elements: vec![SelectStatementStackElement::SelectStatement(SelectStatement {
                         table_name: "users".to_string(),
                         columns: SelectableStack {
@@ -496,9 +492,6 @@ mod tests {
         let expected = vec![
             Ok(DatabaseSqlStatement {
                 sql_statement: SqlStatement::Select(SelectStatementStack {
-                    columns: SelectableStack {
-                        selectables: vec![SelectableStackElement::All],
-                    },
                     elements: vec![SelectStatementStackElement::SelectStatement(SelectStatement {
                         table_name: "users".to_string(),
                         columns: SelectableStack {
