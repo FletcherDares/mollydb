@@ -126,8 +126,24 @@ pub struct ColumnValue {
 }
 
 #[derive(Debug, PartialEq, Clone)]
+pub struct FunctionSignature {
+    pub name: FunctionName,
+    pub input_count: i32,
+    pub has_parentheses: bool,
+}
+
+#[derive(Debug, PartialEq, Clone)]
 pub enum FunctionName {
     CountFunction,
+}
+
+#[derive(Debug, PartialEq, Clone)]
+pub enum MathOperator {
+    Add,
+    Subtract,
+    Multiply,
+    Divide,
+    Modulo,
 }
 
 #[derive (Debug, PartialEq, Clone)]
@@ -140,11 +156,14 @@ pub enum SelectableStackElement {
     All,
     Column(String),
     Value(Value),
-    Function(FunctionName),
-    Parentheses(Parentheses),
+    ValueList(Vec<Value>), // TODO: add column as data type in Value
+    Function(FunctionSignature),
+    Operator(Operator),
+    LogicalOperator(LogicalOperator),
+    MathOperator(MathOperator),
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub enum Operator {
     Equals,
     NotEquals,
@@ -186,7 +205,7 @@ pub enum WhereStackOperators {
     Parentheses(Parentheses),
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub enum LogicalOperator {
     Not,
     And,
