@@ -176,6 +176,7 @@ pub fn get_selectables(
         } else if token.token_type == TokenTypes::As {
             if depth == 0 {
                 expect_alias = true;
+                continue;
             } else {
                 return Err("Unexpected token: AS".to_string());
             }
